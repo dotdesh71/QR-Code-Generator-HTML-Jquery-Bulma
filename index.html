@@ -1,0 +1,76 @@
+<!-- Template file -->
+
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    .header {
+      background-color: #F2F2F2;
+      padding: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .header h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .qr-code {
+      margin: 0 auto;
+      display: block;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <h1>QR Code Generator</h1>
+  </header>
+ 
+  <section class="section">
+    <div class="container">
+      <div class="box">
+      <div class="field has-text-centered">
+        <label class="label">Enter Text to Generate QR Code Image</label>
+        <div class="control">
+          <input type="text" class="input is-medium" id="data" placeholder="Enter Text Here">
+        </div>           
+      </div>
+      <div class="field has-text-centered">
+        <div class="control">
+          <button class="button is-link" id="generate">Generate QR code</button>
+        </div>
+      </div>
+      <div class="field has-text-centered">
+        <div class="control">
+          <img id="qr_code" class="qr-code" style="display: none;">
+          <a class="button is-success" id="download" download="qr_code.png" style="display:none;">Download QR Code</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $("#generate").click(function() {
+      var data = $("#data").val();
+
+      var qr = new QRious({
+        value: data,
+        size: 200
+      });
+
+      $("#qr_code").attr("src", qr.toDataURL());
+      $("#qr_code").show();
+      $("#download").attr("href", qr.toDataURL());
+      $("#download").show();
+    });
+  });
+</script>
+
+</body>
+</html>
